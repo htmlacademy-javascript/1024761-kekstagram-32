@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм»
 
 * Студент: [Ирина Макарова](https://up.htmlacademy.ru/javascript/32/user/1024761).
-* Наставник: `Неизвестно`.
+* Наставник: [Вячеслав Николаев] (https://htmlacademy.ru/profile/slavka_piyavka).
 
 ---
 
