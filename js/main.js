@@ -27,8 +27,6 @@ function createRandomIdFromRangeGenerator (min, max) {
   };
 }
 
-
-/*
 const MESSAGE_COMMENTS = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
@@ -46,7 +44,7 @@ const NICKNAME_COMMENTS = [
   'Саша',
   'Оля'
 ];
-*/
+
 console.log(PHOTO_ID());
 console.log(PHOTO_URL());
 console.log(PHOTO_LIKES());
@@ -55,18 +53,38 @@ console.log(AVATAR_COMMENTS());
 console.log(ID_COMMMENTS());
 
 
+const CreateComments = () => {
+  const RandomIdComments = ID_COMMMENTS();
+  const RandomAvatarNumber = `img/avatar-${AVATAR_COMMENTS()}.svg`;
+  const RandomMessage = getRandomInteger(0, MESSAGE_COMMENTS.length - 1);
+  const RandomNameIndex = getRandomInteger(0, NICKNAME_COMMENTS.length - 1);
+  return {
+    id: RandomIdComments,
+    avatar: RandomAvatarNumber,
+    message: MESSAGE_COMMENTS[RandomMessage],
+    name: NICKNAME_COMMENTS[RandomNameIndex],
+  };
+};
+
+CreateComments();
+console.log(CreateComments());
+
 //Cоздает функцию для объекта
 const DescribePhoto = () => {
   const RandomId = PHOTO_ID();
   const RandomUrl = `photos/${PHOTO_URL()}.jpg`;
+  const DescribtionPhoto = 'Описание фото'
   const RandomLikes = PHOTO_LIKES();
   return {
     id: RandomId,
     url: RandomUrl,
+    description: DescribtionPhoto,
     likes: RandomLikes,
-    comments: []
+    comments: CreateComments()
   };
 };
 
 DescribePhoto();
 console.log(DescribePhoto());
+
+
