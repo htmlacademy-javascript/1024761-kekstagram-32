@@ -1,31 +1,5 @@
-const PHOTO_ID = createRandomIdFromRangeGenerator(1, 25);
-const PHOTO_URL = createRandomIdFromRangeGenerator(1, 25);
-const PHOTO_LIKES = createRandomIdFromRangeGenerator(15, 200);
-const PHOTO_COMMENTS = createRandomIdFromRangeGenerator(0, 30);
-const AVATAR_COMMENTS = createRandomIdFromRangeGenerator(1, 6);
-const ID_COMMMENTS = createRandomIdFromRangeGenerator(1, 999);
-
-//Функция получения целого числа из диапазона
-function getRandomInteger (min, max) {
-  const lower = Math.ceil(Math.min(Math.abs(min), Math.abs(max)));
-  const upper = Math.floor(Math.max(Math.abs(min), Math.abs(max)));
-  const result = Math.random() * (upper - lower + 1) + lower;
-
-  return Math.floor(result);
-}
-//Генератор случаных чисел
-function createRandomIdFromRangeGenerator (min, max) {
-  const previousValues = [];
-
-  return function () {
-    let currentValue = getRandomInteger(min, max);
-    while (previousValues.includes(currentValue)) {
-      currentValue = getRandomInteger(min, max);
-    }
-    previousValues.push(currentValue);
-    return currentValue;
-  };
-}
+import getRandomInteger from './utils';
+import createRandomIdFromRangeGenerator from './utils';
 
 const MESSAGE_COMMENTS = [
   'Всё отлично!',
@@ -34,6 +8,15 @@ const MESSAGE_COMMENTS = [
   'Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше.',
   'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
+];
+
+const DESCRIPTION = [
+  'Я в Париже',
+  'Я в Дубае',
+  'Я в Италии',
+  'Я в Венеции',
+  'Я на Камчатке',
+  'Я на Алтае'
 ];
 
 const NICKNAME_COMMENTS = [
@@ -45,46 +28,35 @@ const NICKNAME_COMMENTS = [
   'Оля'
 ];
 
-console.log(PHOTO_ID());
-console.log(PHOTO_URL());
-console.log(PHOTO_LIKES());
-console.log(PHOTO_COMMENTS());
-console.log(AVATAR_COMMENTS());
-console.log(ID_COMMMENTS());
+const PHOTO_ID = createRandomIdFromRangeGenerator(1, 25);
+const PHOTO_URL = createRandomIdFromRangeGenerator(1, 25);
+const PHOTO_LIKES = createRandomIdFromRangeGenerator(15, 200);
+const PHOTO_COMMENTS = createRandomIdFromRangeGenerator(0, 30);
+const AVATAR_COMMENTS = createRandomIdFromRangeGenerator(1, 6);
+const ID_COMMMENTS = createRandomIdFromRangeGenerator(1, 999);
 
-
-const CreateComments = () => {
-  const RandomIdComments = ID_COMMMENTS();
-  const RandomAvatarNumber = `img/avatar-${AVATAR_COMMENTS()}.svg`;
-  const RandomMessage = getRandomInteger(0, MESSAGE_COMMENTS.length - 1);
-  const RandomNameIndex = getRandomInteger(0, NICKNAME_COMMENTS.length - 1);
+function createComments() {
   return {
-    id: RandomIdComments,
-    avatar: RandomAvatarNumber,
-    message: MESSAGE_COMMENTS[RandomMessage],
-    name: NICKNAME_COMMENTS[RandomNameIndex],
+    comments: {
+      id: ID_COMMMENTS(),
+      avatar: `img/avatar-${AVATAR_COMMENTS()}.svg`,
+      message: MESSAGE_COMMENTS[getRandomInteger(0, MESSAGE_COMMENTS.length - 1)],
+      name: NICKNAME_COMMENTS[getRandomInteger(0, NICKNAME_COMMENTS.length - 1)],
+    }
   };
-};
-
-CreateComments();
-console.log(CreateComments());
+}
+createComments();
 
 //Cоздает функцию для объекта
-const DescribePhoto = () => {
-  const RandomId = PHOTO_ID();
-  const RandomUrl = `photos/${PHOTO_URL()}.jpg`;
-  const DescribtionPhoto = 'Описание фото'
-  const RandomLikes = PHOTO_LIKES();
+function describePhoto() {
   return {
-    id: RandomId,
-    url: RandomUrl,
-    description: DescribtionPhoto,
-    likes: RandomLikes,
-    comments: CreateComments()
+    id: PHOTO_ID(),
+    url: `photos/${PHOTO_URL()}.jpg`,
+    description: DESCRIPTION[getRandomInteger(0, DESCRIPTION.length - 1)],
+    likes: PHOTO_LIKES(),
+    comments: createComments(), PHOTO_COMMENTS()
   };
 };
 
-DescribePhoto();
-console.log(DescribePhoto());
-
-
+describePhoto();
+console.log(describePhoto());
