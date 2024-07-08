@@ -1,3 +1,4 @@
+import {getRandomInteger, createRandomIdFromRangeGenerator} from './utils';
 const MESSAGE_COMMENTS = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
@@ -32,28 +33,6 @@ const COMMENTS = createRandomIdFromRangeGenerator(0, 30);
 const AVATAR_COMMENTS = createRandomIdFromRangeGenerator(1, 6);
 const ID_COMMMENTS = createRandomIdFromRangeGenerator(1, 999);
 
-//Функция получения целого числа из диапазона
-function getRandomInteger (min, max) {
-  const lower = Math.ceil(Math.min(Math.abs(min), Math.abs(max)));
-  const upper = Math.floor(Math.max(Math.abs(min), Math.abs(max)));
-  const result = Math.random() * (upper - lower + 1) + lower;
-
-  return Math.floor(result);
-}
-//Генератор случаных чисел
-function createRandomIdFromRangeGenerator (min, max) {
-  const previousValues = [];
-
-  return function () {
-    let currentValue = getRandomInteger(min, max);
-    while (previousValues.includes(currentValue)) {
-      currentValue = getRandomInteger(min, max);
-    }
-    previousValues.push(currentValue);
-    return currentValue;
-  };
-}
-
 function createComments() {
   return {
     id: ID_COMMMENTS(),
@@ -71,9 +50,9 @@ function describePhoto() {
     url: `photos/${PHOTO_URL()}.jpg`,
     description: DESCRIPTION[getRandomInteger(0, DESCRIPTION.length - 1)],
     likes: PHOTO_LIKES(),
-    comments: Array.from({length: COMMENTS}, createComments)
+    comments: Array.from({length: COMMENTS()}, createComments)
   };
 }
 
 const arrayPhoto = Array.from({length: 25}, describePhoto);
-console.log(arrayPhoto);
+
