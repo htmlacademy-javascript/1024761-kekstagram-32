@@ -1,6 +1,3 @@
-import getRandomInteger from './utils';
-import createRandomIdFromRangeGenerator from './utils';
-
 const MESSAGE_COMMENTS = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
@@ -31,18 +28,38 @@ const NICKNAME_COMMENTS = [
 const PHOTO_ID = createRandomIdFromRangeGenerator(1, 25);
 const PHOTO_URL = createRandomIdFromRangeGenerator(1, 25);
 const PHOTO_LIKES = createRandomIdFromRangeGenerator(15, 200);
-const PHOTO_COMMENTS = createRandomIdFromRangeGenerator(0, 30);
+const COMMENTS = createRandomIdFromRangeGenerator(0, 30);
 const AVATAR_COMMENTS = createRandomIdFromRangeGenerator(1, 6);
 const ID_COMMMENTS = createRandomIdFromRangeGenerator(1, 999);
 
+//Функция получения целого числа из диапазона
+function getRandomInteger (min, max) {
+  const lower = Math.ceil(Math.min(Math.abs(min), Math.abs(max)));
+  const upper = Math.floor(Math.max(Math.abs(min), Math.abs(max)));
+  const result = Math.random() * (upper - lower + 1) + lower;
+
+  return Math.floor(result);
+}
+//Генератор случаных чисел
+function createRandomIdFromRangeGenerator (min, max) {
+  const previousValues = [];
+
+  return function () {
+    let currentValue = getRandomInteger(min, max);
+    while (previousValues.includes(currentValue)) {
+      currentValue = getRandomInteger(min, max);
+    }
+    previousValues.push(currentValue);
+    return currentValue;
+  };
+}
+
 function createComments() {
   return {
-    comments: {
-      id: ID_COMMMENTS(),
-      avatar: `img/avatar-${AVATAR_COMMENTS()}.svg`,
-      message: MESSAGE_COMMENTS[getRandomInteger(0, MESSAGE_COMMENTS.length - 1)],
-      name: NICKNAME_COMMENTS[getRandomInteger(0, NICKNAME_COMMENTS.length - 1)],
-    }
+    id: ID_COMMMENTS(),
+    avatar: `img/avatar-${AVATAR_COMMENTS()}.svg`,
+    message: MESSAGE_COMMENTS[getRandomInteger(0, MESSAGE_COMMENTS.length - 1)],
+    name: NICKNAME_COMMENTS[getRandomInteger(0, NICKNAME_COMMENTS.length - 1)]
   };
 }
 createComments();
@@ -54,9 +71,9 @@ function describePhoto() {
     url: `photos/${PHOTO_URL()}.jpg`,
     description: DESCRIPTION[getRandomInteger(0, DESCRIPTION.length - 1)],
     likes: PHOTO_LIKES(),
-    comments: createComments(), PHOTO_COMMENTS()
+    comments: Array.from({length: COMMENTS}, createComments)
   };
-};
+}
 
-describePhoto();
-console.log(describePhoto());
+const arrayPhoto = Array.from({length: 25}, describePhoto);
+console.log(arrayPhoto);
