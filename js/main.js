@@ -1,4 +1,4 @@
-import './utils';
-import {createArrayPhoto} from './data';
+import './utils.js';
+import {createArrayPhoto} from './data.js';
 
-console.log(createArrayPhoto);
+createArrayPhoto();
