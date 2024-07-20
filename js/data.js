@@ -59,6 +59,4 @@ function createArrayPhoto() {
   return Array.from({length: 25}, describePhoto);
 }
 
-createArrayPhoto();
-
 export {createArrayPhoto};
