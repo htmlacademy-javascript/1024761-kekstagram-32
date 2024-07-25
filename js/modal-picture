@@ -23,13 +23,13 @@ function createComment ({avatar, name, message}) {
 const renderComments = (comments) => {
   commentsList.innerHTML = '';
 
-  const fragment = createDocumentFragment();
+  const fragment = document.createDocumentFragment();
   comments.forEach((item) => {
     const clonedComment = createComment (item);
     fragment.append(clonedComment);
   });
   commentsList.append(fragment);
-}
+};
 
 function removeBigPicture () {
   bigPicture.classList.add('hiden');
@@ -69,7 +69,8 @@ const showBigPicture = (data) => {
 buttonClose.addEventListener('click', onButtonCloseClick);
 export {showBigPicture};
 
-function randerGalery(pictures) {
+//Перенести функцию в другой модуль
+function randerGallery(pictures) {
   picturesContainer.addEventListener('click', (evt) => {
     const clonedPicture = evt.target.closest(['data-picture-id']);
     if (!clonedPicture) {
@@ -84,10 +85,10 @@ function randerGalery(pictures) {
 
   });
 
-  renderClonedPicture(pictures, picturesContainer);
+  renderPosts(pictures, picturesContainer);
 }
 
-export {randerGalery};
+export {randerGallery};
 
 
 

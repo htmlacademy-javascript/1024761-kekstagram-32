@@ -3,7 +3,7 @@ import './pictures.js';
 import './modal-picture.js';
 
 import {createArrayPhoto} from './data.js';
-import { randerGalery } from './modal-picture.js';
-randerGalery();
+import { randerGallery } from './modal-picture.js';
 import { renderPosts } from './pictures.js';
-renderPosts (createArrayPhoto());
+renderPosts();
+randerGallery(createArrayPhoto());
