@@ -5,7 +5,7 @@ const bigPicture = document.querySelector('.big-picture');
 const commentCount = bigPicture.querySelector('.social__comment-count');
 const commentsList = bigPicture.querySelector('.social__comments');
 const commentElement = document.querySelector('#comment').content.querySelector('.social__comment');
-const commentsLoader = bigPicture.querySelector('.social__loader');
+const commentsLoader = bigPicture.querySelector('.social__comments-loader');
 const body = document.querySelector('body');
 const buttonClose = bigPicture.querySelector('.big-picture__cancel');
 
@@ -25,14 +25,14 @@ const renderComments = (comments) => {
 
   const fragment = document.createDocumentFragment();
   comments.forEach((item) => {
-    const clonedComment = createComment (item);
+    const clonedComment = createComment(item);
     fragment.append(clonedComment);
   });
   commentsList.append(fragment);
 };
 
 function removeBigPicture () {
-  bigPicture.classList.add('hiden');
+  bigPicture.classList.add('hidden');
   body.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentKeydown);
 }
@@ -49,17 +49,17 @@ function onButtonCloseClick () {
 }
 
 const renderPictureDetails = ({url, likes, description}) => {
-  bigPicture.querySelector('.big-picture__img img').alt = url;
-  bigPicture.querySelector('.big-picture__img img').src = description;
+  bigPicture.querySelector('.big-picture__img img').alt = description;
+  bigPicture.querySelector('.big-picture__img img').src = url;
   bigPicture.querySelector('.likes-count').textContent = likes;
   bigPicture.querySelector('.social__caption').textContent = description;
 };
 
 const showBigPicture = (data) => {
-  bigPicture.classList.remove('hiden');
+  bigPicture.classList.remove('hidden');
   body.classList.add('modal-open');
-  commentsLoader.classList.add('hiden');
-  commentCount.classList.add('hiden');
+  commentsLoader.classList.add('hidden');
+  commentCount.classList.add('hidden');
   document.addEventListener('keydown', onDocumentKeydown);
 
   renderPictureDetails(data);
@@ -72,17 +72,19 @@ export {showBigPicture};
 //Перенести функцию в другой модуль
 function randerGallery(pictures) {
   picturesContainer.addEventListener('click', (evt) => {
-    const clonedPicture = evt.target.closest(['data-picture-id']);
+    const clonedPicture = evt.target.closest('.picture');
+    console.log(clonedPicture);
     if (!clonedPicture) {
       return;
     }
 
-    evt.preventDefault();
+   // evt.preventDefault();
     const picture = pictures.find(
-      (item) => item.id === + clonedPicture.dataset.clonedPictureId
+      (item) => item.id === +clonedPicture.dataset.pictureId
     );
+    if (picture) {
     showBigPicture(picture);
-
+    }
   });
 
   renderPosts(pictures, picturesContainer);

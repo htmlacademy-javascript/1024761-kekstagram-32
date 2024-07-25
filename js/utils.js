@@ -7,19 +7,22 @@ function getRandomInteger (min, max) {
   return Math.floor(result);
 }
 //Генератор случаных чисел
-function createRandomIdFromRangeGenerator (min, max) {
-  const previousValues = [];
+function createRandomIdFromRangeGenerator(min, max) {
+  const previousNumbs = [];
+  const totalNumbers = max - min + 1;
 
   return function () {
-    let currentValue = getRandomInteger(min, max);
-    if (previousValues.length >= (max - min + 1)) {
-      return null;
+    if (previousNumbs.length >= totalNumbers) {
+      return;
     }
-    while (previousValues.includes(currentValue)) {
-      currentValue = getRandomInteger(min, max);
-    }
-    previousValues.push(currentValue);
-    return currentValue;
+
+    let currentNum;
+    do {
+      currentNum = getRandomInteger(min, max);
+    } while (previousNumbs.includes(currentNum));
+
+    previousNumbs.push(currentNum);
+    return currentNum;
   };
 }
 
