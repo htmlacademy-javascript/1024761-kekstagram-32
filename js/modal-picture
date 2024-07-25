@@ -1,4 +1,4 @@
-import { renderPosts } from "./pictures.js";
+import { renderPosts } from './pictures.js';
 
 const picturesContainer = document.querySelector('.pictures');
 const bigPicture = document.querySelector('.big-picture');
@@ -89,6 +89,4 @@ function randerGallery(pictures) {
 }
 
 export {randerGallery};
-
-
 
