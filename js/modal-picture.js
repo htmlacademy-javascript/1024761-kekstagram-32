@@ -45,8 +45,8 @@ const renderComments = () => {
   for (let i = 0; i < commentsShown; i++) {
     const clonedComment = createComment(comments[i]);
     fragment.append(clonedComment);
-  };
-  
+  }
+
   commentsList.innerHTML = '';
   commentsList.append(fragment);
   commentShowCount.textContent = commentsShown;
@@ -58,21 +58,21 @@ function closeBigPicture () {
   body.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentKeydown);
   commentsShown = 0;
-};
+}
 
 function onDocumentKeydown(evt) {
   if (evt.key === 'Escape') {
     evt.preventDefault();
     closeBigPicture ();
   }
-};
+}
 
 function onButtonCloseClick () {
   closeBigPicture ();
-};
+}
 
 function onCommentsLoaderClick() {
-  renderComments()
+  renderComments();
 }
 
 const renderPictureDetails = ({url, likes, description}) => {
@@ -88,7 +88,7 @@ const showBigPicture = (data) => {
   commentsLoader.classList.add('hidden');
   //commentCount.classList.add('hidden');
   document.addEventListener('keydown', onDocumentKeydown);
-  
+
   renderPictureDetails(data);
   comments = data.comments;
   //renderComments(data.comments);
