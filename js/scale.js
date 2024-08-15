@@ -12,4 +12,17 @@ const imageElement = document.querySelector('.img-uploadimg-upload__preview img'
 const scaleImage = (value) => {
   imageElement.style.transform = `scale(${value / 100})`;
   scaleInputElement.value = `${value}%`;
-}
+};
+
+const onSmallerButtonClick = () => {
+  scaleImage(
+    Math.max(parseInt(scaleInputElement, 10) - SCALE_STEP, MIN_SCALE)
+  );
+};
+
+const onBiggerButtonClick = () => {
+  scaleImage(
+    Math.min(parseInt(scaleInputElement, 10) + SCALE_STEP, MAX_SCALE)
+  );
+};
+
