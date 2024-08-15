@@ -26,3 +26,7 @@ const onBiggerButtonClick = () => {
   );
 };
 
+const resetScale = () => scaleImage(DEFAULT_SCALE);
+
+export { resetScale }
+
