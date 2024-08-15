@@ -26,6 +26,9 @@ const onBiggerButtonClick = () => {
   );
 };
 
+smallerButtonElement.addEventListener('click', onSmallerButtonClick);
+biggerButtonElement.addEventListener('click', onBiggerButtonClick);
+
 const resetScale = () => scaleImage(DEFAULT_SCALE);
 
 export { resetScale }
