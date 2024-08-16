@@ -3,10 +3,11 @@ const MIN_SCALE = 25;
 const MAX_SCALE = 100;
 const DEFAULT_SCALE = 100;
 
-const smallerButtonElement = document.querySelector('.scale__control--smaller');
-const biggerButtonElement = document.querySelector('.scale__control--bigger');
-const scaleInputElement = document.querySelector('.scale__control--value');
-const imageElement = document.querySelector('.img-uploadimg-upload__preview img');
+const modalElement = document.querySelector('.img-upload');
+const smallerButtonElement = modalElement.querySelector('.scale__control--smaller');
+const biggerButtonElement = modalElement.querySelector('.scale__control--bigger');
+const scaleInputElement = modalElement.querySelector('.scale__control--value');
+const imageElement = modalElement.querySelector('.img-upload__preview img');
 
 const scaleImage = (value) => {
   imageElement.style.transform = `scale(${value / 100})`;
@@ -15,13 +16,13 @@ const scaleImage = (value) => {
 
 const onSmallerButtonClick = () => {
   scaleImage(
-    Math.max(parseInt(scaleInputElement, 10) - SCALE_STEP, MIN_SCALE)
+    Math.max(parseInt(scaleInputElement.value, 10) - SCALE_STEP, MIN_SCALE)
   );
 };
 
 const onBiggerButtonClick = () => {
   scaleImage(
-    Math.min(parseInt(scaleInputElement, 10) + SCALE_STEP, MAX_SCALE)
+    Math.min(parseInt(scaleInputElement.value, 10) + SCALE_STEP, MAX_SCALE)
   );
 };
 
