@@ -1,3 +1,10 @@
+import { resetScale } from './scale.js';
+
+import {
+  init as initEffect,
+  reset as resetEffect
+} from './effect.js';
+
 const MAX_HASHTAG_COUNT = 5;
 const CORRECT_HASHTAG = /^#[a-zа-яё0-9]{1,19}$/i;
 const ErrorText = {
@@ -28,6 +35,8 @@ const showModal = () => {
 
 const hideModal = () => {
   form.reset();
+  resetScale();
+  resetEffect();
   pristine.reset();
   overlay.classList.add('hidden');
   body.classList.remove('modal-open');
@@ -82,17 +91,18 @@ pristine.addValidator(
   hashtagField,
   hasUniqueTags,
   ErrorText.NOT_UNIQUE,
-  2,
+  1,
   true
 );
 pristine.addValidator(
   hashtagField,
   hasValidTags,
   ErrorText.INVALID_PATTERN,
-  1,
+  2,
   true
 );
 
 fileField.addEventListener('change', onFileInputChange);
 cancelButton.addEventListener('click', onCancelButtonClick);
 form.addEventListener('submit', onFormSubmit);
+initEffect();
