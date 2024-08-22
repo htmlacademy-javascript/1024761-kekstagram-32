@@ -97,7 +97,7 @@ const setOnFormSubmit = (callback) => {
 
     if (isValid) {
       toggleSubmitButton(true);
-      await callback(new FormData());
+      await callback(new FormData(form));
       toggleSubmitButton();
     }
   });
