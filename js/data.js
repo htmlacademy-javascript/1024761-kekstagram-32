@@ -1,4 +1,4 @@
-import { getRandomInteger, createRandomIdFromRangeGenerator } from './utils.js';
+/*import { getRandomInteger, createRandomIdFromRangeGenerator } from './utils.js';
 
 const MESSAGE_COMMENTS = [
   'Всё отлично!',
@@ -62,3 +62,4 @@ function createArrayPhoto() {
 const dataPhoto = createArrayPhoto();
 
 export {dataPhoto};
+*/
