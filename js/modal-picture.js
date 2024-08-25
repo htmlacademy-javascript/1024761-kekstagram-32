@@ -102,25 +102,30 @@ commentsLoader.addEventListener('click', onCommentsLoaderClick);
 
 export {showBigPicture};
 
-//Перенести функцию в другой модуль
-function renderGallery(pictures) {
-  picturesContainer.addEventListener('click', (evt) => {
-    const clonedPicture = evt.target.closest('.picture');
-    if (!clonedPicture) {
-      return;
-    }
 
-    // evt.preventDefault();
-    const picture = pictures.find(
-      (item) => item.id === +clonedPicture.dataset.pictureId
-    );
-    if (picture) {
-      showBigPicture(picture);
-    }
-  });
+//function renderGallery(pictures) {
+// picturesContainer.addEventListener('click', (evt) => {
+let pictures = [];
+const onContainerClick = (evt) => {
+  const clonedPicture = evt.target.closest('.picture');
+  if (!clonedPicture) {
+    return;
+  }
 
+  // evt.preventDefault();
+  const picture = pictures.find(
+    (item) => item.id === +clonedPicture.dataset.pictureId
+  );
+  if (picture) {
+    showBigPicture(picture);
+  }
+};
+
+const renderGallery = (currentPictures) => {
+  pictures = currentPictures;
   renderPosts(pictures, picturesContainer);
-}
+  picturesContainer.addEventListener('click', onContainerClick);
+};
 
 export {renderGallery};
 
