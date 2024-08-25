@@ -102,7 +102,7 @@ commentsLoader.addEventListener('click', onCommentsLoaderClick);
 
 export {showBigPicture};
 
-//Перенести функцию в другой модуль
+
 //function renderGallery(pictures) {
 // picturesContainer.addEventListener('click', (evt) => {
 let pictures = [];

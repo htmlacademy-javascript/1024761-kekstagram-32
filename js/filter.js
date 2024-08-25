@@ -1,3 +1,4 @@
+
 const PICTURES_COUNT = 10;
 const Filter = {
   DEFAULT: 'filter-default',
@@ -11,8 +12,9 @@ let pictures = [];
 
 const sortRandomly = () => Math.random() - 0.5;
 
-const sortByComments = (pictureA, pictureB) =>
-  pictureB.comments.length - pictureA.comments.length;
+const sortByComments = (a, b) =>
+  b.picture.comments.length - a.picture.comments.length;
+
 
 const getFilteredPictures = () => {
   switch (currentFilter) {
