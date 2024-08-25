@@ -1,5 +1,4 @@
 import { resetScale } from './scale.js';
-
 import {
   init as initEffect,
   reset as resetEffect
@@ -7,7 +6,7 @@ import {
 
 const MAX_HASHTAG_COUNT = 5;
 const CORRECT_HASHTAG = /^#[a-zа-яё0-9]{1,19}$/i;
-
+const FILE_TYPES = ['jpg', 'jpeg', 'png'];
 const ErrorText = {
   INVALID_COUNT: `Максимум ${MAX_HASHTAG_COUNT} хэштегов`,
   NOT_UNIQUE: 'Хэштеги должны быть уникальными',
@@ -26,7 +25,8 @@ const fileField = form.querySelector('.img-upload__input');
 const hashtagField = form.querySelector('.text__hashtags');
 const commentField = form.querySelector('.text__description');
 const submitButton = form.querySelector('.img-upload__submit');
-
+const photoPreview = form.querySelector('.img-upload__preview img');
+const effectsPreviews = form.querySelectorAll('.effects__preview');
 
 const pristine = new Pristine(form, {
   classTo: 'img-upload__field-wrapper',
@@ -63,6 +63,10 @@ const isTextFieldFocused = () =>
 
 const isErrorMessageShown = () => Boolean(document.querySelector('.error'));
 
+const isValidType = (file) => {
+  const fileName = file.name.toLowerCase();
+  return FILE_TYPES.some((it) => fileName.endsWith(it));
+};
 
 const normalizeTags = (tagString) =>
   tagString
@@ -94,7 +98,14 @@ const onCancelButtonClick = () => {
 };
 
 const onFileInputChange = () => {
+  const file = fileField.files[0];
 
+  if (file && isValidType(file)) {
+    photoPreview.src = URL.createObjectURL(file);
+    effectsPreviews.forEach((preview) => {
+      preview.style.backgroundImage = `url('${photoPreview.src}')`;
+    });
+  }
   showModal();
 };
 
