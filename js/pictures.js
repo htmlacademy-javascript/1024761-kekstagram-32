@@ -2,7 +2,7 @@ const pictures = document.querySelector('.pictures');
 const picturesTemplate = document.querySelector('#picture').content.querySelector('.picture');
 const fragment = document.createDocumentFragment();
 
-function renderPosts (posts) {
+const renderPosts = (posts) => {
   pictures.querySelectorAll('.picture').forEach((element) => element.remove());
   posts.forEach((picture) => {
     const clonedPicture = picturesTemplate.cloneNode(true);
@@ -15,6 +15,6 @@ function renderPosts (posts) {
   });
 
   pictures.appendChild(fragment);
-}
+};
 
 export {renderPosts};

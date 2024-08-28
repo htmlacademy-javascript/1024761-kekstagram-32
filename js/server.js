@@ -21,7 +21,6 @@ const load = (route, method = Method.GET, body = null) =>
     });
 
 const getData = () => load(Route.GET_DATA);
-
 const sendData = (body) => load(Route.SEND_DATA, Method.POST, body);
 
 export {getData, sendData};

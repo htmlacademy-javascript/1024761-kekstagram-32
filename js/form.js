@@ -31,7 +31,7 @@ const effectsPreviews = form.querySelectorAll('.effects__preview');
 const pristine = new Pristine(form, {
   classTo: 'img-upload__field-wrapper',
   errorTextParent: 'img-upload__field-wrapper',
-  errorTextClass: 'img-upload__field-wrapper__error'
+  errorTextClass: 'img-upload__field-wrapper--error'
 });
 
 const showModal = () => {
@@ -51,7 +51,7 @@ const hideModal = () => {
 };
 
 const toggleSubmitButton = (isDisabled) => {
-  submitButton.disablet = isDisabled;
+  submitButton.disabled = isDisabled;
   submitButton.textContent = isDisabled
     ? SubmitButtonText.SUBMITTING
     : SubmitButtonText.IDLE;
@@ -85,9 +85,8 @@ const hasUniqueTags = (value) => {
   return lowerCaseTags.length === new Set(lowerCaseTags).size;
 };
 
-
 function onDocumentKeydown(evt) {
-  if (evt.key === 'Escape' && !isTextFieldFocused() && isErrorMessageShown()) {
+  if (evt.key === 'Escape' && !isTextFieldFocused() && !isErrorMessageShown()) {
     evt.preventDefault();
     hideModal();
   }
@@ -113,7 +112,6 @@ const setOnFormSubmit = (callback) => {
   form.addEventListener('submit', async (evt) => {
     evt.preventDefault();
     const isValid = pristine.validate();
-
     if (isValid) {
       toggleSubmitButton(true);
       await callback(new FormData(form));
