@@ -109,4 +109,3 @@ const renderGallery = (currentPictures) => {
 };
 
 export {showBigPicture, renderGallery};
-

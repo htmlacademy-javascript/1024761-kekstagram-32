@@ -13,7 +13,6 @@ const renderPosts = (posts) => {
     clonedPicture.dataset.pictureId = picture.id;
     fragment.appendChild(clonedPicture);
   });
-
   pictures.appendChild(fragment);
 };
 
