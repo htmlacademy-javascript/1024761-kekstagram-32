@@ -1,10 +1,8 @@
 import { renderPosts } from './pictures.js';
 
 const SHOW_COUNT_COMMENTS = 5;
-
 const picturesContainer = document.querySelector('.pictures');
 const bigPicture = document.querySelector('.big-picture');
-//const commentCount = bigPicture.querySelector('.social__comment-count');
 const commentShowCount = bigPicture.querySelector('.social__comment-shown-count');
 const commentTotalCount = bigPicture.querySelector('.social__comment-total-count');
 const commentsList = bigPicture.querySelector('.social__comments');
@@ -16,18 +14,13 @@ const buttonClose = bigPicture.querySelector('.big-picture__cancel');
 let commentsShown = 0;
 let comments = [];
 
-function createComment ({avatar, name, message}) {
+const createComment = ({avatar, name, message}) => {
   const clonedComment = commentElement.cloneNode(true);
-
   clonedComment.querySelector('.social__picture').src = avatar;
   clonedComment.querySelector('.social__picture').alt = name;
   clonedComment.querySelector('.social__text').textContent = message;
-
   return clonedComment;
-}
-
-//const renderComments = (comments) => {
-//  commentsList.innerHTML = '';
+};
 
 const renderComments = () => {
   commentsShown += SHOW_COUNT_COMMENTS;
@@ -40,25 +33,22 @@ const renderComments = () => {
   }
 
   const fragment = document.createDocumentFragment();
-  //comments.forEach((item) => {
-  //  const clonedComment = createComment(item);
   for (let i = 0; i < commentsShown; i++) {
     const clonedComment = createComment(comments[i]);
     fragment.append(clonedComment);
   }
-
   commentsList.innerHTML = '';
   commentsList.append(fragment);
   commentShowCount.textContent = commentsShown;
   commentTotalCount.textContent = comments.length;
 };
 
-function closeBigPicture () {
+const closeBigPicture = () => {
   bigPicture.classList.add('hidden');
   body.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentKeydown);
   commentsShown = 0;
-}
+};
 
 function onDocumentKeydown(evt) {
   if (evt.key === 'Escape') {
@@ -67,13 +57,13 @@ function onDocumentKeydown(evt) {
   }
 }
 
-function onButtonCloseClick () {
+const onButtonCloseClick = () => {
   closeBigPicture ();
-}
+};
 
-function onCommentsLoaderClick() {
+const onCommentsLoaderClick = () => {
   renderComments();
-}
+};
 
 const renderPictureDetails = ({url, likes, description}) => {
   bigPicture.querySelector('.big-picture__img img').alt = description;
@@ -86,12 +76,9 @@ const showBigPicture = (data) => {
   bigPicture.classList.remove('hidden');
   body.classList.add('modal-open');
   commentsLoader.classList.add('hidden');
-  //commentCount.classList.add('hidden');
   document.addEventListener('keydown', onDocumentKeydown);
-
   renderPictureDetails(data);
   comments = data.comments;
-  //renderComments(data.comments);
   if (comments.length > 0) {
     renderComments();
   }
@@ -100,11 +87,6 @@ const showBigPicture = (data) => {
 buttonClose.addEventListener('click', onButtonCloseClick);
 commentsLoader.addEventListener('click', onCommentsLoaderClick);
 
-export {showBigPicture};
-
-
-//function renderGallery(pictures) {
-// picturesContainer.addEventListener('click', (evt) => {
 let pictures = [];
 const onContainerClick = (evt) => {
   const clonedPicture = evt.target.closest('.picture');
@@ -112,7 +94,6 @@ const onContainerClick = (evt) => {
     return;
   }
 
-  // evt.preventDefault();
   const picture = pictures.find(
     (item) => item.id === +clonedPicture.dataset.pictureId
   );
@@ -127,5 +108,4 @@ const renderGallery = (currentPictures) => {
   picturesContainer.addEventListener('click', onContainerClick);
 };
 
-export {renderGallery};
-
+export {showBigPicture, renderGallery};

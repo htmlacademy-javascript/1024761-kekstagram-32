@@ -1,14 +1,9 @@
-//import {dataPhoto} from './data.js';
 import { renderGallery } from './modal-picture.js';
 import { getData, sendData } from './server.js';
 import { showAlert, debounce} from './utils.js';
 import { setOnFormSubmit, hideModal } from './form.js';
 import { showSuccessMessage, showErrorMessage} from './message.js';
 import {init as initFilter, getFilteredPictures} from './filter.js';
-
-
-//renderGallery(dataPhoto);
-//import './form.js';
 
 setOnFormSubmit(async (data) => {
   try {
